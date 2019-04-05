@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <a class="navbar-brand" href="#" style="color:white">Logo</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto"></ul>
+    <form class="form-inline my-lg-0">
+      <a
+        class="nav-link"
+        style="color: white"
+        routerLink="/home"
+        >Home</a
+      >
+      <a
+        class="nav-link"
+        style="color: white"
+        routerLink="/signup"
+        routerLinkActive="active"
+        >Sign up</a
+      >
+      <a
+        class="nav-link"
+        style="color: white"
+        routerLink="/login"
+        >Login</a
+      >
+      <a
+        class="nav-link"
+        style="color: white"
+        (click)="logout()"
+        >Logout</a
+      >
+    </form>
+  </div>
+</nav>

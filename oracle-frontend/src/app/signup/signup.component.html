@@ -1,0 +1,166 @@
+  <form #userForm="ngForm" *ngIf="!registerSucessMsg">
+    <div class="container pt-3" style="width:40%">
+      <h1 class="pb-2" style="text-align:center">Create an Account</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr />
+      <div class="form-group">
+        <label for="firstName">FirstName</label>
+        <input
+          type="text"
+          #fname="ngModel"
+          pattern="^[a-zA-Z]*[a-zA-Z0-9]{5,15}$"
+          [class.is-invalid]="fname.invalid && fname.touched"
+          class="form-control"
+          id="firstName"
+          [(ngModel)]="user.firstName"
+          name="firstName"
+          placeholder="Enter your firstname"
+          required
+        />
+        <div *ngIf="fname.errors?.pattern" class="alert alert-danger">
+          Firstname must be atleast 5 character .
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">LastName</label>
+        <input
+          type="text"
+          #lname="ngModel"
+          pattern="^[a-zA-Z]*[a-zA-Z0-9]{3,15}$"
+          [class.is-invalid]="lname.invalid && lname.touched"
+          class="form-control"
+          id="lastName"
+          [(ngModel)]="user.lastName"
+          name="lastName"
+          placeholder="Enter your lastname"
+          required
+        />
+        <div *ngIf="lname.errors?.pattern" class="alert alert-danger">
+          Lastname must be atleast 3 character .
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          #pwd="ngModel"
+          pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$"
+          class="form-control"
+          id="password"
+          [(ngModel)]="user.password"
+          name="password"
+          placeholder="Enter your password"
+          required
+        />
+        <div
+          *ngIf="pwd.errors && (pwd.touched || pwd.dirty)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="pwd.errors.required">
+            Password required.
+          </div>
+
+          <div *ngIf="pwd.errors.pattern">
+            <small>
+              Password should be alphanumeric with capital and small letters and
+              atleast 6 character.</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmpassword">Confirm Password</label>
+
+        <input
+          type="password"
+          #confirmpassword="ngModel"
+          pattern="{{ pwd.value }}"
+          class="form-control"
+          id="confirmpassword"
+          [(ngModel)]="user.cnfpassword"
+          name="confirmpassword"
+          placeholder="Confirm your password"
+          required
+        />
+
+        <div
+          *ngIf="
+            confirmpassword.invalid &&
+            (confirmpassword.dirty || confirmpassword.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="confirmpassword.errors.required">
+            Confirm password is required.
+          </div>
+
+          <div *ngIf="confirmpassword.errors.pattern">
+            Password & Confirm Password does not match.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          #emailref="ngModel"
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,3}$"
+          class="form-control"
+          id="email"
+          [(ngModel)]="user.email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        />
+
+        <div
+          *ngIf="emailref.errors && (emailref.touched || emailref.dirty)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="emailref.errors.required">
+            Email required.
+          </div>
+
+          <div [hidden]="!emailref.errors?.pattern">
+            Invalid pattern, must conatin _@_._
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select
+          class="form-control"
+          id="firstName"
+          [(ngModel)]="user.role"
+          name="role"
+        >
+          <option value="">Select Role</option>
+          <option value="ADMIN">Admin</option>
+          <option value="USER">user</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="userForm.invalid"
+          (click)="saveUser(user, userForm)"
+        >
+          Submit
+        </button>
+      </div>
+      <p class="text-center text-muted">
+        Already have an account? <a href="login">Login</a>.
+      </p>
+    </div>
+  </form>
+<div class="row d-flex justify-content-center" *ngIf="registerSucessMsg">
+  <div class="col-lg-6">
+    <h4 class="alert alert-success text-center">
+      {{ registerSucessMsg }}
+    </h4>
+  </div>
+</div>
